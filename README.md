@@ -23,7 +23,8 @@
 11. [📁 Project Structure | Структура проекта](#-project-structure--структура-проекта)
 12. [🚀 How to Run | Запуск проекта](#-how-to-run--запуск-проекта)
 13. [📬 Contact | Контакты](#-contact--контакты)
-14. [⚖️ License | Лицензия](#️-license--лицензия)
+14. [⚙️ Displaying development on BluePrints and C | Показ разработки на Блюпринтах и C
+](#️-displaying-development-on-blueprints-and-c--показ-разработки-на-блюпринтах-и-c)
 
 ---
 
@@ -185,7 +186,7 @@ git clone <repository>
 
 ---
 
-## ⚖️ Displaying development on BluePrints and C++ | Displaying development on BluePrints and C++
+## ⚙️ Displaying development on BluePrints and C | Показ разработки на Блюпринтах и C
 
 ## 🌓 Day/Night Cycle Logic
 
@@ -262,7 +263,7 @@ Each button in the tablet interface calls the `Change Content` function in the `
 
 ---
 
-### ⚙️ Selection Wheel Logic
+### 🎡 Selection Wheel Logic
 1. **Loading the tools database**  
    On startup, the `DT_Tools` Data Table is read, the number of items is counted, and the corresponding number of wheel segments is set.
 
@@ -291,6 +292,47 @@ The Blueprint contains the following blocks:
 ![WheelLogic](https://sun9-83.userapi.com/s/v1/if2/DeR2IX7Sbgol9JkwhvY5W9ei5yCcnxIiPMWd6ePV0a3uNKbiE-pN52aNez0tF7EtXpLxLhcSWcarOoRVPa87Spfa.jpg?quality=95&as=32x8,48x13,72x19,108x29,160x42,240x64,360x95,480x127,540x143,640x170,720x191,1080x286,1280x339,1440x382,2048x543&from=bu&cs=2048x0)
 
 ---
+# 🎮 Main Menu System
+
+![MainMenu](https://sun9-36.userapi.com/s/v1/if2/EmEtST6y48bORIIbnLASbA8DIo5hnTESX6F-iurI_CSSKm6pApthlxoqs3MH_U4x3ykFWltMXZ4sFjt9UzTvMKmW.jpg?quality=95&as=32x18,48x27,72x40,108x61,160x90,240x135,360x202,480x269,540x303,640x359,720x404,1080x606,1124x631&from=bu&cs=1124x0)
+### 📋 Description
+The main menu in the game is opened by pressing the **P** key.  
+It is the central tablet element managed in the main widget and is responsible for displaying the content in the tablet based on the selected section.  
+The main menu is composed of a grid of buttons. Each button calls the `Change Content` function via the **On Clicked** event.
+
+---
+
+### 🎯 Button functionality
+- **Resume** — resumes the game.
+- **Options** — in development (no functionality yet, but will be added in the future).
+- **Main menu** — restarts the game.
+- **Leave game** — exits the game.
+
+---
+
+### ⚙️ Logic
+1. Pressing **P** opens the main menu.
+2. The **Resume** button calls the `Pause Hide` function, returning the player to the game.
+3. The **Options** button currently has no bound logic.
+4. The **Main menu** button calls `Pause Hide` and then executes `Open Level`, restarting the current scene.
+5. The **Leave game** button gets the player controller and executes the `Quit Game` command.
+
+---
+![Main](https://sun9-21.userapi.com/s/v1/ig2/iq4X4joT6EG-ipkDQxfYhD40uRPhGLhPAtzrXqUCCqqapljSTWXGCF1JZ88p6R5YRTHkkK5W1nmdIqm6UWw5UKty.jpg?quality=95&as=32x36,48x53,72x80,108x120,160x178,240x267,360x401,480x535,540x601,640x713,720x802,817x910&from=bu&cs=817x0)
+
+### 🖥 Blueprint Workflow
+#### **Initialization**
+- When the widget is created (`Event Construct`), it retrieves the player using `Get Player Character`.
+- The retrieved object is cast to `BP_FirstPersonCharacter` and stored in the `Player` variable for later use.
+
+#### **Resume button**
+- The **On Clicked (Button_Resume)** event calls the `Pause Hide` function on the stored player object, hiding the menu and resuming the game.
+
+#### **Main menu**
+- The **On Clicked (Button_Main)** event calls `Pause Hide`, then executes `Open Level (by Name)` with the specified level name (default: `Demo`), restarting the scene.
+
+#### **Leave button**
+- The **On Clicked (Button_Leave)** event gets the player controller (`Get Player Controller`) and executes the `Quit Game` command, exiting the game.
 
 
 
