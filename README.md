@@ -30,10 +30,10 @@
 ## 📖 Introduction | Введение
 
 **RU:**
-Этот ассет поможет вам создать или расширить проект с механиками ремонта, кастомизации интерьеров и взаимодействия с объектами. Всё реализовано на **Blueprints**, что упрощает интеграцию и кастомизацию.
+Этот проект с механиками ремонта, кастомизации интерьеров и взаимодействия с объектами. Всё реализовано на **Blueprints** и **C++**.
 
 **EN:**
-This asset allows you to create or expand a project with renovation mechanics, interior customization, and object interaction. Fully implemented in **Blueprints**, making integration and customization easy.
+This project with renovation mechanics, interior customization, and object interaction. Fully implemented in **Blueprints** and **C++**.
 
 ---
 
@@ -185,14 +185,58 @@ git clone <repository>
 
 ---
 
-## ⚖️ License | Лицензия
+## ⚖️ Displaying development on BluePrints and C++ | Displaying development on BluePrints and C++
 
-Specify your license (MIT, GPL, etc.).
+## 🌓 Day/Night Cycle Logic
+
+**Initialization (Event BeginPlay):**
+
+* Get the player character and cast to BP_FirstPersonCharacter.
+* Store the reference in a variable Player.
+
+**Day/Night Cycle (Event Tick):**
+
+1. Event Tick provides Delta Seconds.
+2. Multiply Delta Seconds by Day Length (float) — controls time speed.
+3. Pass the result to the Clock function (updates internal time) and rotate Directional Light using Add Actor Local Rotation.
+4. Get Actor Rotation and check Pitch:
+
+   * If between **0–100**, it’s considered **night**.
+5. Based on the Night Time flag, call NightLighting or DayLighting.
+
+![Day/Night Blueprint Logic](https://sun9-31.userapi.com/s/v1/if2/r3k_4QrB-AH6gpEroxdzXV6VjmW6CptQn6WcR1aokgrS5fTHXOrW8wtWpRSC_sFpWPMSGBXyPlV2808J8vrSwuvC.jpg?quality=95\&as=32x16,48x24,72x36,108x54,160x80,240x119,360x179,480x239,540x269,640x318,720x358,1080x537,1280x637,1440x716,2048x1019\&from=bu\&cs=2048x0)
+
+## 📱 Interactive Tablet
+
+* Open/close with **TAB**.
+* Menu has 4 main categories for interior customization:
+
+  * **🎨 PAINT** — choose wall color (12 available colors).
+  * **🧱 WALLS** — decorative panels (currently red & white pattern).
+  * **🪵 FLOORS** — floor texture (wood — brown).
+  * **🏠 CEILINGS** — ceiling painting (default: pastel white).
+* **Back** button available in every section.
+
+![Tablet Menu](https://sun9-85.userapi.com/s/v1/if2/7x0g0cGxwInAeFSot3kS-24wcGumIWuUziFhJJc3c4wFv44KUZvetKHnnJxdcRHR1Zd4bAnG2H75gMbMl6d2iLIH.jpg?quality=95\&as=32x20,48x30,72x46,108x69,160x102,240x152,360x229,480x305,540x343,640x406,720x457,940x597\&from=bu\&cs=940x0)
+
+### 🎨 Available Colors (PAINT)
+
+* White ⚪
+* Red 🔴
+* Light Blue 🔵
+* Green 🟢
+* Yellow 🟡
+* Purple 🟣
+* Orange 🟠
+* Pink 💗
+* Black ⚫
+* Brown 🟤
+* Gray 🔘
+* Salmon 📀
+
 
 ---
 
-Я могу ещё сделать в этом README **мини-иконки для каждого раздела в оглавлении** и **ссылки-якоря**, чтобы навигация была как в документации UE Marketplace.
-Хочешь, чтобы я добавил это в финальную версию?
 
 
 
