@@ -334,5 +334,109 @@ The main menu is composed of a grid of buttons. Each button calls the `Change Co
 #### **Leave button**
 - The **On Clicked (Button_Leave)** event gets the player controller (`Get Player Controller`) and executes the `Quit Game` command, exiting the game.
 
+---
+
+# Unreal Engine 5 Day/Night Cycle & Clock System 🌞🌙
+
+## 📜 Overview / Обзор
+
+This system is responsible for simulating a day and night cycle in the game world. The day/night cycle affects various aspects of the game, such as lighting, and is controlled by an internal clock. The cycle is designed to speed up or slow down based on the developer's preferences, allowing more flexibility in gameplay or simulation scenarios.
+
+Эта система отвечает за имитацию цикла дня и ночи в игровом мире. Цикл дня и ночи влияет на различные аспекты игры, такие как освещение, и управляется внутренними часами. Цикл можно ускорить или замедлить в зависимости от предпочтений разработчика, что позволяет больше гибкости в геймплейе или симуляциях.
+
+---
+
+## ⚙️ Blueprint Breakdown / Разбор блюпринта
+
+### **Initialization (Event Begin Play) / Инициализация (Событие Begin Play)**
+
+- **Get Player Character**: The blueprint begins by retrieving the player character when the game starts (Event Begin Play).  
+  **Получить персонажа игрока**: Блюпринт начинается с получения персонажа игрока, когда игра запускается (Событие Begin Play).
+
+- **Cast to BP_FirstPersonCharacter**: The player character is cast to a specific blueprint class (`BP_FirstPersonCharacter`) to ensure proper referencing.  
+  **Каст к BP_FirstPersonCharacter**: Персонаж игрока кастуется в конкретный класс блюпринта (`BP_FirstPersonCharacter`) для правильного ссылки.
+
+- **Set Player**: After casting, the player reference is set for further use within the system.  
+  **Установить Player**: После кастования создается ссылка на игрока, которая используется в дальнейшем.
+
+![Blueprints](https://sun9-47.userapi.com/s/v1/if2/QKbNLbiv1BXm27rcYQEc72D2yy_XO-nVUndKg4XSFEf9Z7-i4bvEELkpMh-8KEFNa_HvvBO1vOrTFocUeOZGZxC2.jpg?quality=95&as=32x12,48x18,72x27,108x40,160x59,240x89,360x133,480x178,540x200,640x237,720x266,1080x399,1280x473,1440x533,2063x763&from=bu&cs=2063x0)
+
+---
+
+### **🎉Day/Night Cycle (Event Tick) / Цикл дня и ночи (Событие Tick)**
+
+The core of the system updates every frame (Event Tick) to simulate the passage of time. Here's the breakdown:
+
+Основная часть системы обновляется каждый кадр (Событие Tick), чтобы симулировать прохождение времени. Вот разбор:
+
+1. **Clock Update / Обновление часов**:
+   - The clock system continuously tracks the passage of time (controlled by the variable `Day Length`).  
+     **Часы**: Система часов непрерывно отслеживает прохождение времени (управляется переменной `Day Length`).
+
+   - The clock is directly connected to the day/night cycle, so speeding up the cycle will cause the clock to run faster as well.  
+     **Цикл дня и ночи**: Часы напрямую связаны с циклом дня и ночи, поэтому ускоряя цикл, вы ускоряете и работу часов.
+
+2. **Actor Rotation (Directional Light) / Поворот актора (Направленный свет)**:
+   - The system continuously updates the rotation of the directional light (which simulates the sun or moon) based on the time of day.  
+     **Поворот актора (Направленный свет)**: Система обновляет поворот направленного света (симулирующий солнце или луну) в зависимости от времени суток.
+
+   - The `Add Actor Local Rotation` node adjusts the light's pitch in relation to the game world, making the lighting change as the day progresses.  
+     **Изменение угла поворота**: Узел `Add Actor Local Rotation` регулирует угол наклона света относительно игрового мира, заставляя освещение изменяться с течением дня.
+
+3. **Determine If It's Day or Night / Определение, день ли сейчас или ночь**:
+   - The system checks if the time of day is within the defined range for daytime or nighttime using an `In Range (Float)` check.  
+     **Определение дня или ночи**: Система проверяет, попадает ли время суток в определенный диапазон дня или ночи с помощью проверки `In Range (Float)`.
+
+   - If the time falls within the designated night period, the `Night Lighting` function is activated.  
+     **Если ночь**: Если время попадает в диапазон ночного времени, активируется функция `Night Lighting`.
+
+   - If it's daytime, the `Day Lighting` function is used.  
+     **Если день**: Если день, используется функция `Day Lighting`.
+
+4. **Lighting / Освещение**:
+   - Depending on the time of day, the lighting for both day and night are adjusted to simulate realistic lighting effects.  
+     **Освещение**: В зависимости от времени суток освещение для дня и ночи изменяется для симуляции реалистичных световых эффектов.
+
+   - The `NightLighting` and `DayLighting` functions adjust the environmental light to reflect either a night-time or day-time setting.  
+     **Функции освещения**: Функции `NightLighting` и `DayLighting` регулируют окружение света для отображения ночного или дневного времени.
+![Blueprints](https://sun9-23.userapi.com/s/v1/if2/TfNrG1RKyZjLGANo0vkcJnjkuEZaj3tq_Nid4qMHh0XdRKjNMXou6Cgs-a75Xs4mBj4kls_SqwCYRohHaG8sKpfn.jpg?quality=95&as=32x18,48x27,72x40,108x60,160x89,240x133,360x200,480x266,540x299,640x355,720x399,1080x599,1280x710,1440x798,1703x944&from=bu&cs=1703x0)
+![Blueprints](https://sun9-63.userapi.com/s/v1/if2/GHkwQ28x7gHX9YCrJ2ktMgaQAGu2I9GLMZpJFAeiplyHLwBLxkzv2NlDQicw9Jf2KOYlvvdKzNQvJu5oau0nl01L.jpg?quality=95&as=32x18,48x26,72x40,108x60,160x88,240x132,360x199,480x265,540x298,640x353,720x397,1080x596,1280x706,1440x794,1704x940&from=bu&cs=1280x0)
+---
+
+## ⏰ Clock Widget / Виджет часов
+
+The clock system also has a user interface component. To display the clock in the game's HUD:
+
+Система часов также имеет компонент пользовательского интерфейса. Чтобы отображать часы в HUD игры:
+
+1. **Adding the Clock to HUD / Добавление часов в HUD**:
+   - The clock can be added to the user interface by placing the child widget (`WBP_Clock`) into your main widget.  
+     **Добавление часов в HUD**: Вы можете добавить часы в интерфейс пользователя, поместив дочерний виджет (`WBP_Clock`) в основной виджет.
+
+   - You can find the clock widget in the `/Blueprints/Widgets/Childs` folder in your project directory.  
+     **Папка с виджетом**: Виджет часов находится в папке `/Blueprints/Widgets/Childs` вашего проекта.
+
+2. **Day Count / Подсчет дней**:
+   - The number of days in the game is automatically tracked and updated at the end of each day at 0:00.  
+     **Подсчет дней**: Количество дней в игре автоматически отслеживается и обновляется в конце каждого дня в 00:00.
+     
+![Blueprints](https://sun9-11.userapi.com/s/v1/if2/52U_Ous104yhOhgah9zQl5uek3sIOU2DXOIJjFYQ4nDGTMRSy-091gv8OyTmfhPOhId8qr4UFYeYOy_9qI7F4h86.jpg?quality=95&as=32x11,48x16,72x24,108x36,130x43&from=bu&cs=130x0)
+
+---
+
+## 🎯 Conclusion / Заключение
+
+This system provides an efficient and flexible way to manage time within your game, enabling seamless transitions between day and night. The clock is not only tied to the lighting but can also be extended for other features such as event triggers based on time.
+
+Эта система предоставляет эффективный и гибкий способ управления временем в вашей игре, позволяя легко переключаться между днем и ночью. Часы не только связаны с освещением, но могут быть расширены для других функций, таких как активация событий в зависимости от времени.
+
+---
+
+Feel free to adjust the parameters such as `Day Length` to change the speed of the cycle. You can also expand the clock widget for more advanced UI displays if needed.
+
+Не стесняйтесь настроить параметры, такие как `Day Length`, чтобы изменить скорость цикла. Вы также можете расширить виджет часов для более сложных элементов UI, если это необходимо.
+
+---
+
 
 
