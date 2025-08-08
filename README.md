@@ -1,5 +1,3 @@
----
-
 # 🏠 Renovation Simulator — Unreal Engine 5 🎮🛠️
 
 [🎥 YouTube Preview ▶️](https://youtu.be/_9fxAEfgmrA)
@@ -438,5 +436,101 @@ Feel free to adjust the parameters such as `Day Length` to change the speed of t
 
 ---
 
+# Character Blueprint Overview / Обзор Блюпринта Персонажа
+
+## 📝 Introduction / Введение
+
+This blueprint is responsible for managing a variety of key gameplay systems, such as input mapping, character movement, interaction, tool usage, camera control, and more. Here's a breakdown of the key components in this blueprint:
+
+Этот блюпринт управляет множеством ключевых систем геймплея, таких как маппинг ввода, движение персонажа, взаимодействие, использование инструментов, управление камерой и многое другое. Вот разбор основных компонентов этого блюпринта.
+
+![Blueprints](https://sun9-16.userapi.com/s/v1/if2/EpnWnETP86pOeP_zcUtUv3yAxegBYK7AiJHSAwuxJvAFJZNIWmcofQNrydpo-aHlYlPfuPM_kaswulHh5y5upOp0.jpg?quality=95&as=32x13,48x20,72x30,108x45,160x67,240x100,360x151,480x201,540x226,640x268,720x301,1080x452,1280x535,1440x602,1855x776&from=bu&cs=1280x0)
+
+---
+
+## ⚙️ Initialization / Инициализация
+
+- **Event Begin Play**: When the game begins, the blueprint initializes by retrieving the player character and setting up necessary variables such as the player reference.  
+  **Событие Begin Play**: Когда игра начинается, блюпринт инициализируется, получая персонажа игрока и устанавливая необходимые переменные, такие как ссылка на игрока.
+
+- **Add Input Mapping**: The input mappings are configured, and it listens for controller changes to ensure proper handling of player input during the game session.  
+  **Добавление маппинга ввода**: Маппинг ввода настраивается, и блюпринт отслеживает изменения контроллера для правильной обработки ввода игрока во время игры.
+
+---
+
+## 🎮 Camera Control / Управление Камерой
+
+- **Camera Input**: This section handles camera movement, allowing the player to control the camera’s orientation. Input is mapped to certain actions (like rotating the camera left/right and up/down).  
+  **Управление камерой**: Этот раздел обрабатывает движение камеры, позволяя игроку контролировать её ориентацию. Ввод связан с определёнными действиями (например, вращение камеры влево/вправ и вверх/вниз).
+
+---
+
+## 🚶‍♂️ Movement Input / Ввод Движения
+
+- **Left/Right Movement**: The blueprint handles the player's left and right movement, allowing horizontal motion.  
+  **Движение влево/вправ**: Блюпринт обрабатывает движение игрока влево и вправо, позволяя горизонтальное движение.
+
+- **Up/Down Movement**: Similarly, vertical movement (e.g., jumping or crouching) is handled.  
+  **Движение вверх/вниз**: Аналогично, вертикальное движение (например, прыжки или приседания) также обрабатывается.
+
+- **Forward/Backward Movement**: The blueprint also includes functionality for moving the player forward and backward, typically tied to the W and S keys (or corresponding controller buttons).  
+  **Движение вперёд/назад**: Блюпринт также включает функциональность для движения персонажа вперёд и назад, обычно привязанных к клавишам W и S (или соответствующим кнопкам контроллера).
+
+These movement inputs are managed using the `Enhanced Input` system for both axis-based controls and specific actions.  
+Эти вводы движения управляются с использованием системы `Enhanced Input` для контроля по осям и конкретных действий.
+
+---
+
+## 🦸‍♂️ Jumping / Прыжки
+
+- **Jump Input**: The blueprint listens for the jump action (usually the spacebar or controller button) and triggers the jump behavior. Jumping functionality can be configured in the `CharacterMovementComponent`.  
+  **Ввод прыжка**: Блюпринт отслеживает действие прыжка (обычно клавиша пробела или кнопка контроллера) и вызывает поведение прыжка. Функциональность прыжка можно настроить в компоненте `CharacterMovementComponent`.
+
+---
+
+## 🔄 Interaction System / Система Взаимодействия
+
+- **Interaction**: The blueprint handles the system for interacting with objects within the game world. When the player looks at an interactable object, the game can trigger the appropriate action and show the relevant interaction UI.  
+  **Взаимодействие**: Блюпринт управляет системой взаимодействия с объектами в игровом мире. Когда игрок смотрит на взаимодействуемый объект, игра может вызвать соответствующее действие и отобразить нужный интерфейс взаимодействия.
+
+---
+
+## 🛠️ Tool Actions / Действия Инструментов
+
+- **Tool Selection Wheel**: This section provides a selection wheel for tools, where the player can select various tools for different tasks. The wheel uses dynamic materials, and players can easily customize tool selection. When a player releases the wheel button, the currently selected tool is chosen (default being "hands").  
+  **Колесо выбора инструмента**: Этот раздел предоставляет колесо выбора инструментов, где игрок может выбрать различные инструменты для разных задач. Колесо использует динамические материалы, и игроки могут легко настроить выбор инструментов. Когда игрок отпускает кнопку колеса, выбранный инструмент активируется (по умолчанию — "руки").
+
+- **Tool Animation**: When a tool is selected and used, the tool's animation is played (such as a brush animation for cleaning or a hammer animation for repairs).  
+  **Анимация инструмента**: Когда инструмент выбран и используется, воспроизводится его анимация (например, анимация кисти для уборки или анимация молотка для ремонта).
+
+---
+
+## 📱 Tablet Interface / Интерфейс Плана
+
+- **Show/Hide Tablet**: The tablet UI can be shown or hidden based on player input. The tablet is central to various in-game tasks, and it includes the main menu and other interactive widgets for controlling gameplay.  
+  **Показать/Скрыть планшет**: Интерфейс планшета может быть показан или скрыт в зависимости от ввода игрока. Планшет является центральным элементом для различных игровых задач и включает главное меню и другие интерактивные виджеты для управления игровым процессом.
+
+- **Contents Management**: Widgets on the tablet are dynamically shown and switched based on player interaction. Players can easily modify content within the tablet, allowing for a customizable user experience.  
+  **Управление содержимым**: Виджеты на планшете динамически отображаются и переключаются в зависимости от взаимодействия с игроком. Игроки могут легко изменять содержимое планшета, предоставляя кастомизируемый опыт пользователя.
+
+---
+
+## 🌅 Day/Night Cycle and Level Management / Цикл Дня/Ночи и Управление Уровнями
+
+- **Day/Night Cycle Instance**: The blueprint includes logic for managing day and night transitions, ensuring proper environmental changes based on the time of day.  
+  **Инстанс Цикла Дня/Ночи**: Блюпринт включает логику для управления переходами между днем и ночью, обеспечивая правильные изменения окружающей среды в зависимости от времени суток.
+
+- **Level Interaction**: This system ensures that the player's interaction with objects and the environment is tracked properly, including triggering levels or objectives based on player actions.  
+  **Взаимодействие с Уровнями**: Эта система отслеживает взаимодействие игрока с объектами и окружающей средой, включая активацию уровней или целей в зависимости от действий игрока.
+
+---
+
+## ☕ Pause Menu and UI / Меню Паузы и Интерфейс
+
+- **Pause Menu**: The blueprint includes functionality for displaying the pause menu when the player presses the pause button (`P`). This allows the player to interact
+
+---
+
+## ❗ Автор позже закинет сюда разработку на C++/The author will add the C++ development here later.
 
 
