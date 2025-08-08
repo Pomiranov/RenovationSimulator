@@ -233,14 +233,61 @@ git clone <repository>
 * Brown 🟤
 * Gray 🔘
 * Salmon 📀
+---
 
+## ⚙️ Logic
+
+Each button in the tablet interface calls the `Change Content` function in the `WBP Tablet` widget.
+
+### Main flow:
+1. The user clicks a button in the menu.
+2. The **On Clicked** event is triggered.
+3. The **Change Content** function is called with the `Content` parameter corresponding to the selected section.
+4. The tablet hides the current screen and displays the selected content.
+5. On the content screen, the user chooses a material/color, which is then applied in the scene.
+
+![Tablet](https://sun9-25.userapi.com/s/v1/if2/bqlwnqx2nv_VitvvjOb4GbNJVojP1n5rd1-MR_Aw1dcu1H9Edxc4zDVCXZ7Nn8Btrkh1gkGnsvT7eFusrmqisM1h.jpg?quality=95&as=32x18,48x27,72x40,108x60,160x90,240x134,360x202,480x269,540x302,640x358,720x403,1080x605,1280x717,1440x806,1541x863&from=bu&cs=1541x0)
 
 ---
 
+## 🗂 Button and content structure
 
+| Button               | Loaded Content       | Purpose                             |
+|----------------------|----------------------|--------------------------------------|
+| `Button_Back`        | Content Menus        | Return to the main menu              |
+| `Button_Paint`       | Content Paint        | Wall color palette                   |
+| `Button_Walls`       | Content Walls        | Decorative panel selection           |
+| `Button_Floors`      | Content Floors       | Floor texture selection              |
+| `Button_Ceilings`    | Content Ceiling      | Ceiling paint selection              |
 
+---
 
+### ⚙️ Selection Wheel Logic
+1. **Loading the tools database**  
+   On startup, the `DT_Tools` Data Table is read, the number of items is counted, and the corresponding number of wheel segments is set.
 
+2. **Creating icons**  
+   For each tool, an icon widget is created and added to the selection wheel.
 
+3. **Dynamic material**  
+   - Controls the visual display of the segments.  
+   - Allows adjusting the **sector size** depending on the number of tools.  
+   - Highlights the active sector.
+
+4. **Tool selection**  
+   - A red border around a sector indicates the current selection.  
+   - The tool is selected when the wheel key is released.  
+   - By default, the selected tool is **Hands (`Tool_01`)**.
+
+### 🖼 Blueprint logic example
+The Blueprint contains the following blocks:
+- **Tools database** — loading and processing `DT_Tools`.
+- **Icons** — creating and displaying tool icons in the wheel.
+- **Material Instance** — configuring the dynamic material.
+- **Sector Size** — calculating the size of each segment.
+- **Sector Selection** — determining the currently selected sector.
+- **Update Sector** — updating the wheel state in `Tick`.
+
+![WheelLogic](
 
 
